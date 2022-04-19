@@ -22,13 +22,15 @@ public class PostController {
             @RequestParam(value = "size", defaultValue = "10", required = false) Integer size,
             @RequestParam(value = "sort", defaultValue = "desc", required = false) String sort) {
 
-        Integer from = page * size;
+        
         if(!(sort.equals("asc") || sort.equals("desc"))){
             throw new IllegalArgumentException();
         }
         if(page < 0 || size <= 0){
             throw new IllegalArgumentException();
         }
+        
+        Integer from = page * size;
         return postService.findAll(size, from, sort);
     }
 
