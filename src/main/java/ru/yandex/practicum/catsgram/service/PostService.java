@@ -8,9 +8,10 @@ import ru.yandex.practicum.catsgram.model.Post;
 import ru.yandex.practicum.catsgram.model.User;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static ru.yandex.practicum.catsgram.Constants.DESCENDING_ORDER;
 
 @Service
 public class PostService {
@@ -22,20 +23,6 @@ public class PostService {
     @Autowired
     public PostService(UserService userService) {
         this.userService = userService;
-    }
-
-    public List<Post> findAll(Integer size, Integer from, String sort) {
-        return posts.stream().sorted((p0, p1) -> {
-            int comp = p0.getCreationDate().compareTo(p1.getCreationDate()); //прямой порядок сортировки
-            if(sort.equals("desc")){
-                comp = -1 * comp; //обратный порядок сортировки
-            }
-            return comp;
-        }).skip(from).limit(size).collect(Collectors.toList());
-    }
-
-    private static Integer getNextId(){
-        return globalId++;
     }
 
     public Post create(Post post) {
@@ -58,13 +45,31 @@ public class PostService {
                 .orElseThrow(() -> new PostNotFoundException(String.format("Пост № %d не найден", postId)));
     }
 
+    public List<Post> findAll(Integer size, Integer from, String sort) {
+        return posts.stream()
+                .sorted((p0, p1) -> compare(p0, p1, sort))
+                .skip(from)
+                .limit(size)
+                .collect(Collectors.toList());
+    }
+
     public List<Post> findAllByUserEmail(String email, Integer size, String sort) {
-        return posts.stream().filter(p -> email.equals(p.getAuthor())).sorted((p0, p1) -> {
-            int comp = p0.getCreationDate().compareTo(p1.getCreationDate()); //прямой порядок сортировки
-            if(sort.equals("desc")){
-                comp = -1 * comp; //обратный порядок сортировки
-            }
-            return comp;
-        }).limit(size).collect(Collectors.toList());
+        return posts.stream()
+                .filter(p -> email.equals(p.getAuthor()))
+                .sorted((p0, p1) -> compare(p0, p1, sort))
+                .limit(size)
+                .collect(Collectors.toList());
+    }
+
+    private static Integer getNextId() {
+        return globalId++;
+    }
+
+    private int compare(Post p0, Post p1, String sort) {
+        int result = p0.getCreationDate().compareTo(p1.getCreationDate()); //прямой порядок сортировки
+        if (sort.equals(DESCENDING_ORDER)) {
+            result = -1 * result; //обратный порядок сортировки
+        }
+        return result;
     }
 }
