@@ -56,7 +56,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleUnauthorizedUser(final Throwable e) {
+    public ErrorResponse handleThrowable(final Throwable e) {
         return new ErrorResponse(
                 "Произошла непредвиденная ошибка."
         );
