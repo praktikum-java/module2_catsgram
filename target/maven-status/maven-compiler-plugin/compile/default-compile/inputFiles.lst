@@ -1,0 +1,8 @@
+/Users/olegstolarov/DEV/module2_catsgram/src/main/java/ru/yandex/practicum/catsgram/controller/PostController.java
+/Users/olegstolarov/DEV/module2_catsgram/src/main/java/ru/yandex/practicum/catsgram/exceptions/UserAlreadyExistException.java
+/Users/olegstolarov/DEV/module2_catsgram/src/main/java/ru/yandex/practicum/catsgram/controller/SimpleController.java
+/Users/olegstolarov/DEV/module2_catsgram/src/main/java/ru/yandex/practicum/catsgram/model/Post.java
+/Users/olegstolarov/DEV/module2_catsgram/src/main/java/ru/yandex/practicum/catsgram/CatsgramApplication.java
+/Users/olegstolarov/DEV/module2_catsgram/src/main/java/ru/yandex/practicum/catsgram/model/User.java
+/Users/olegstolarov/DEV/module2_catsgram/src/main/java/ru/yandex/practicum/catsgram/exceptions/InvalidEmailException.java
+/Users/olegstolarov/DEV/module2_catsgram/src/main/java/ru/yandex/practicum/catsgram/controller/UserController.java
