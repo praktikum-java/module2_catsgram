@@ -1,19 +1,28 @@
 package ru.yandex.practicum.catsgram.model;
 
-import java.time.Instant;
+import java.time.LocalDate;
 
 public class Post {
 
     private Integer id;
-    private final String author; // автор
-    private final Instant creationDate = Instant.now(); // дата создания
+    private final User author; // автор
+    private final LocalDate creationDate; // дата создания
     private String description; // описание
     private String photoUrl; // url-адрес фотографии
 
-    public Post(String author, String description, String photoUrl) {
+    public Post(User author, String description, String photoUrl) {
         this.author = author;
         this.description = description;
         this.photoUrl = photoUrl;
+        this.creationDate = LocalDate.now();
+    }
+
+    public Post(Integer id, User author, String description, String photoUrl, LocalDate creationDate) {
+        this.id = id;
+        this.author = author;
+        this.description = description;
+        this.photoUrl = photoUrl;
+        this.creationDate = creationDate;
     }
 
     public Integer getId() {
@@ -24,11 +33,11 @@ public class Post {
         this.id = id;
     }
 
-    public String getAuthor() {
+    public User getAuthor() {
         return author;
     }
 
-    public Instant getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 

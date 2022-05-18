@@ -11,6 +11,12 @@ public class User {
     public User() {
     }
 
+    public User(String id, String username, String nickname) {
+        this.id = id;
+        this.username = username;
+        this.nickname = nickname;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -34,5 +40,4 @@ public class User {
     public String getId() {
         return id;
     };
-
 }
