@@ -20,7 +20,9 @@ public class SimpleController {
     @GetMapping("/do-hack")
     public Optional<String> doHack(){
                 return hackCatService.doHackNow()
-                                .map(password -> "Ура! Пароль подобран: " + password);
+                        .map(password -> "Ура! Пароль подобран: " + password)
+                        .or(() -> Optional.of("Не удалось подобрать пароль. "
+                                + " Проверьте состояние и настройки базы данных."));
     }
 
     @GetMapping("/home")
