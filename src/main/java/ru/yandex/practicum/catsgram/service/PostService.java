@@ -33,14 +33,14 @@ public class PostService {
                     post.getAuthor()));
         }
 
-        post.setId(getNextId());
+        post.setID(getNextId());
         posts.add(post);
         return post;
     }
 
     public Post findPostById(Integer postId) {
         return posts.stream()
-                .filter(p -> p.getId().equals(postId))
+                .filter(p -> p.getID().equals(postId))
                 .findFirst()
                 .orElseThrow(() -> new PostNotFoundException(String.format("Пост № %d не найден", postId)));
     }
