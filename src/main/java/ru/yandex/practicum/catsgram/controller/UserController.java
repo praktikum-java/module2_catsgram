@@ -1,29 +1,39 @@
 package ru.yandex.practicum.catsgram.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.catsgram.handler.UserHandler;
 import ru.yandex.practicum.catsgram.model.User;
+import ru.yandex.practicum.catsgram.service.UserService;
 
 import java.util.Collection;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private final UserHandler userHandler = new UserHandler();
+    private final UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
     public Collection<User> findAll() {
-        return userHandler.findAll();
+        return userService.findAll();
     }
 
     @PostMapping
-    public void create(@RequestBody User user) {
-        userHandler.createUser(user);
+    public User createUser(@RequestBody User user) {
+        return userService.createUser(user);
     }
 
     @PutMapping
     public User updateUser(@RequestBody User user) {
-        return userHandler.updateUser(user);
+        return userService.updateUser(user);
+    }
+
+    @GetMapping("/user/{userMail}")
+    public User getUser(@PathVariable("userMail") String userMail){
+        return userService.findUserByEmail(userMail);
     }
 }
