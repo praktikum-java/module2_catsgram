@@ -5,13 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import ru.yandex.practicum.catsgram.model.FriendsParams;
 import ru.yandex.practicum.catsgram.model.Post;
 import ru.yandex.practicum.catsgram.service.PostService;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController()
 public class PostFeedController {
@@ -35,42 +34,12 @@ public class PostFeedController {
 
         if (friendsParams != null) {
             List<Post> result = new ArrayList<>();
-            for (String friend : friendsParams.friends) {
-                result.addAll(postService.findAllByUserEmail(friend, friendsParams.size, friendsParams.sort));
+            for (String friend : friendsParams.getFriends()) {
+                result.addAll(postService.findAllByUserEmail(friend, friendsParams.getSize(), friendsParams.getSort()));
             }
             return result;
         } else {
             throw new RuntimeException("неверно заполнены параметры");
-        }
-    }
-
-    static class FriendsParams {
-        private String sort;
-        private Integer size;
-        private List<String> friends;
-
-        public String getSort() {
-            return sort;
-        }
-
-        public void setSort(String sort) {
-            this.sort = sort;
-        }
-
-        public Integer getSize() {
-            return size;
-        }
-
-        public void setSize(Integer size) {
-            this.size = size;
-        }
-
-        public List<String> getFriends() {
-            return friends;
-        }
-
-        public void setFriends(List<String> friends) {
-            this.friends = friends;
         }
     }
 }
