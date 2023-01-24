@@ -31,3 +31,4 @@ public class FeedParams {
         return friendsEmails;
     }
 }
+
