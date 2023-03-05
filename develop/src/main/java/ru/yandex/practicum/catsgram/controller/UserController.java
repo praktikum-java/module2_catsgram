@@ -21,7 +21,7 @@ public class UserController {
         return users;
     }
 
-    @PostMapping(value = "/user")
+    @PostMapping()
     public User createUser(@RequestBody User user) throws UserAlreadyExistException {
         if (users.contains(user.getEmail())) {
             throw new UserAlreadyExistException
@@ -32,7 +32,7 @@ public class UserController {
         }
     }
 
-    @PutMapping(value = "/user")
+    @PutMapping()
     public User updateUser(@RequestBody User user) throws InvalidEmailException {
         if (user.getEmail() == null) {
             throw new InvalidEmailException("В переданных данных отсутствует адрес электронной почты");
