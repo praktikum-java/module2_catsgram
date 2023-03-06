@@ -9,5 +9,4 @@ public class CatsgramApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CatsgramApplication.class, args);
 	}
-
 }
