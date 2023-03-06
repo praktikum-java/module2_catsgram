@@ -1,45 +1,43 @@
 package ru.yandex.practicum.catsgram.controller;
 
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.catsgram.User;
+import ru.yandex.practicum.catsgram.models.User;
 import ru.yandex.practicum.catsgram.exception.InvalidEmailException;
 import ru.yandex.practicum.catsgram.exception.UserAlreadyExistException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private List<User> users = new ArrayList<>();
+    private final Map<String, User> users = new HashMap<>();
 
-    @GetMapping()
-    public List<User> findAll() {
-        if (users.size() == 0) {
-            System.out.println("Список пользователей пока пустой");
-        }
-        return users;
+    @GetMapping
+    public Collection<User> findAll() {
+        return users.values();
     }
 
-    @PostMapping()
-    public User createUser(@RequestBody User user) throws UserAlreadyExistException {
-        if (users.contains(user.getEmail())) {
-            throw new UserAlreadyExistException
-                    ("Пользователь с указанным адресом электронной почты уже был добавлен ранее");
-        }else {
-            users.add(user);
-            return user;
+    @PostMapping
+    public User create(@RequestBody User user) {
+        if(user.getEmail() == null || user.getEmail().isBlank()) {
+            throw new InvalidEmailException("Адрес электронной почты не может быть пустым.");
         }
+        if(users.containsKey(user.getEmail())) {
+            throw new UserAlreadyExistException("Пользователь с электронной почтой " +
+                    user.getEmail() + " уже зарегистрирован.");
+        }
+        users.put(user.getEmail(), user);
+        return user;
     }
 
-    @PutMapping()
-    public User updateUser(@RequestBody User user) throws InvalidEmailException {
-        if (user.getEmail() == null) {
-            throw new InvalidEmailException("В переданных данных отсутствует адрес электронной почты");
-        } else {
-            users.add(user);
-            return user;
+    @PutMapping
+    public User put(@RequestBody User user) {
+        if(user.getEmail() == null || user.getEmail().isBlank()) {
+            throw new InvalidEmailException("Адрес электронной почты не может быть пустым.");
         }
+        users.put(user.getEmail(), user);
+
+        return user;
     }
 }
 

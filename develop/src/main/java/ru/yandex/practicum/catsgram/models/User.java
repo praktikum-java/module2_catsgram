@@ -1,4 +1,4 @@
-package ru.yandex.practicum.catsgram;
+package ru.yandex.practicum.catsgram.models;
 
 import java.time.LocalDate;
 import java.util.Objects;
