@@ -1,0 +1,8 @@
+ru\yandex\practicum\catsgram\model\UserAlreadyExistException.class
+ru\yandex\practicum\catsgram\controller\SimpleController.class
+ru\yandex\practicum\catsgram\CatsgramApplication.class
+ru\yandex\practicum\catsgram\model\InvalidEmailException.class
+ru\yandex\practicum\catsgram\controller\PostController.class
+ru\yandex\practicum\catsgram\controller\UserController.class
+ru\yandex\practicum\catsgram\model\Post.class
+ru\yandex\practicum\catsgram\model\User.class

@@ -1,0 +1,46 @@
+package ru.yandex.practicum.catsgram.controller;
+
+
+import org.springframework.web.bind.annotation.*;
+import ru.yandex.practicum.catsgram.model.InvalidEmailException;
+import ru.yandex.practicum.catsgram.model.User;
+import ru.yandex.practicum.catsgram.model.UserAlreadyExistException;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/users")
+public class UserController {
+    private final Map<String, User> users = new HashMap<>();
+
+    @GetMapping
+    public List<User> getUsers() {
+        return new ArrayList<>(users.values());
+
+    }
+
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        if (user.getEmail() == null || user.getEmail().isEmpty()) {
+            throw new InvalidEmailException("Адрес электронной почты не может быть пустым.");
+        }
+        if (users.containsKey(user.getEmail())) {
+            throw new UserAlreadyExistException("Пользователь с электронной почтой " + user.getEmail() + " уже зарегистрирован.");
+        }
+        users.put(user.getEmail(), user);
+        return user;
+    }
+
+    @PutMapping
+    public User updateUser(@RequestBody User user) {
+        if (user.getEmail() == null || user.getEmail().isEmpty()) {
+            throw new InvalidEmailException("Адрес электронной почты не может быть пустым.");
+        }
+        users.put(user.getEmail(), user);
+
+        return user;
+    }
+}
